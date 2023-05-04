@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdv0npnywtmrr"]
+
+[ext_resource type="Texture2D" uid="uid://cm72hjhacgq8r" path="res://kenney_monochrome-rpg/Monochrome/Tiles/tile_0119.png" id="1_g3usj"]
+[ext_resource type="Script" path="res://player.gd" id="1_nctui"]
+[ext_resource type="PackedScene" uid="uid://d1eb83mvabnkx" path="res://sword.tscn" id="2_0j0pd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbftb"]
+size = Vector2(14, 13)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 0
+script = ExtResource("1_nctui")
+sword_instance = ExtResource("2_0j0pd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_g3usj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_mbftb")
+
+[node name="SwordTimer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="SwordTimer" to="." method="_on_sword_timer_timeout"]

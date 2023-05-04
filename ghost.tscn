@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8v035vmrn0m0"]
+
+[ext_resource type="Script" path="res://ghost.gd" id="1_60p58"]
+[ext_resource type="Texture2D" uid="uid://ox632jxdnprj" path="res://kenney_monochrome-rpg/Monochrome/Tiles/tile_0125.png" id="1_pt335"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60u2d"]
+size = Vector2(12, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy1lc"]
+size = Vector2(12, 13)
+
+[node name="Ghost" type="CharacterBody2D" groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 18
+script = ExtResource("1_60p58")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pt335")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_60u2d")
+
+[node name="HitBox" type="Area2D" parent="." groups=["Enemies"]]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_hy1lc")
+
+[node name="HurtTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_hit_box_body_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]

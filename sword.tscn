@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1eb83mvabnkx"]
+
+[ext_resource type="Texture2D" uid="uid://gjdupobfbqdv" path="res://kenney_monochrome-rpg/Monochrome/Tiles/tile_0126.png" id="1_31pwu"]
+[ext_resource type="Script" path="res://sword.gd" id="1_xvp5n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hllug"]
+size = Vector2(8, 14)
+
+[node name="Sword" type="Area2D"]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_xvp5n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_31pwu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hllug")
+
+[node name="SelfDestructor" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="SelfDestructor" to="." method="_on_self_destructor_timeout"]

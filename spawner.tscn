@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://brenberhhofpf"]
+
+[ext_resource type="Script" path="res://spawner.gd" id="1_nr4k7"]
+[ext_resource type="Texture2D" uid="uid://cwith3j5fqoxa" path="res://kenney_monochrome-rpg/Monochrome/Tiles/tile_0064.png" id="1_pbeu0"]
+[ext_resource type="PackedScene" uid="uid://b8v035vmrn0m0" path="res://ghost.tscn" id="2_e8uvr"]
+
+[node name="Spawner" type="Node2D"]
+script = ExtResource("1_nr4k7")
+ghost_instance = ExtResource("2_e8uvr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pbeu0")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
